@@ -1,0 +1,20 @@
+$reversefeed_enpa = 'reversefeed_enpa';
+
+        // Clear existing records to start fresh
+        DB::table($reversefeed_enpa)->truncate();
+
+        // Generate 3000 records
+        $data = [];
+
+        for ($i = 0; $i < 3000; $i++) {
+            $data[] = [
+                'SOURCESYSTEMNAME' => 'D2K',
+                'DATEOFDATA' => '2023-11-26',
+                'UCIC_ID' => 'CIF_20112023',
+                'ASSETCLASS' => 'NPA',
+                'NPADATE' => '2023-11-26',
+            ];
+        }
+
+        // Insert the data into the table
+        DB::table($reversefeed_enpa)->insert($data);
