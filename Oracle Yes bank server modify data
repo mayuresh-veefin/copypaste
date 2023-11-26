@@ -1,0 +1,74 @@
+select count(*) from reversefeed_enpa;
+select id, name, is_npa, asset_class, npa_date, veefin_npa_status, centralized_npa from companies where registration_no='CIF_20112023';
+
+INSERT INTO REVERSEFEED_ENPA
+(
+    SOURCESYSTEMNAME,
+    DATEOFDATA,
+    UCIC_ID,
+    FCR_CUSTOMERID,
+    SOURCESYSTEMCUSTOMERID,
+    ACCOUNTID,
+    ASSETCLASS,
+    ASSETSUBCLASS,
+    NPADATE,
+    NPAREASON,
+    NPACATEGORY,
+    ISRECORDREAD
+)
+VALUES
+(
+    'D2k',
+    TO_DATE('2023-11-26', 'YYYY-MM-DD'),
+    'CIF_20112023',
+    NULL,
+    NULL,
+    NULL,
+    'NPA',
+    NULL,
+    TO_DATE('2023-11-26', 'YYYY-MM-DD'),
+    NULL,
+    NULL,
+    '0'
+);
+
+update companies set is_npa=0, asset_class=null, npa_date=null, centralized_npa = 0 where registration_no='CIF_20112023';
+
+DECLARE
+  v_counter NUMBER := 1;
+BEGIN
+  WHILE v_counter <= 3000 LOOP
+    INSERT INTO REVERSEFEED_ENPA
+    (
+      SOURCESYSTEMNAME,
+      DATEOFDATA,
+      UCIC_ID,
+      FCR_CUSTOMERID,
+      SOURCESYSTEMCUSTOMERID,
+      ACCOUNTID,
+      ASSETCLASS,
+      ASSETSUBCLASS,
+      NPADATE,
+      NPAREASON,
+      NPACATEGORY,
+      ISRECORDREAD
+    )
+    VALUES
+    (
+      'D2k',
+      TO_DATE('2023-11-26', 'YYYY-MM-DD'),
+      'CIF-20112023',
+      NULL,
+      NULL,
+      NULL,
+      'NPA',
+      NULL,
+      TO_DATE('2023-11-26', 'YYYY-MM-DD'),
+      NULL,
+      NULL,
+      '0'
+    );
+
+    v_counter := v_counter + 1;
+  END LOOP;
+END;
